@@ -27,10 +27,10 @@ public class CreateDeveloper {
         private Integer experienceYears;
 
         @NotNull
-        @Size(min = 3, max = 50, message = "memberId size must 3 ~50")
+        @Size(min = 3, max = 50, message = "memberId size must 3~50")
         private String memberId;
         @NotNull
-        @Size(min = 3, max = 20, message = "memberId size must 3 ~20")
+        @Size(min = 3, max = 20, message = "memberId size must 3~20")
         private String name;
         @Min(18)
         private Integer age;
