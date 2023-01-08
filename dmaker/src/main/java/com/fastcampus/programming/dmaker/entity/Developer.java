@@ -6,7 +6,6 @@ import com.fastcampus.programming.dmaker.type.DeveloperSkillType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -31,7 +30,7 @@ public class Developer {
     private DeveloperSkillType developerSkillType;
 
     private Integer experienceYears;
-    private String memeberId;
+    private String memberId;
     private String name;
     private Integer age;
 
