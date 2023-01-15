@@ -59,15 +59,15 @@ public class DMakerController {
         return dMakerService.deleteDeveloper(memberId);
     }
 
-//    @ResponseStatus(value = HttpStatus.CONFLICT) // 설정 안 해주면 예외가 발생해도 응답이 200 OK로 감. But, 실무에서는 200 코드로 내려주고 아래 에러코드, 에러메시지를 변경하도록 개발함
-    @ExceptionHandler(DMakerException.class)
-    public DMakerErrorResponse handleException(DMakerException e, HttpServletRequest request) {
-        log.error("errorCode:  {}, url: {}, message: {}",
-                e.getDMakerErrorCode(), request.getRequestURI(), e.getDetailMessage());
-
-        return DMakerErrorResponse.builder()
-                .errorCode(e.getDMakerErrorCode())
-                .errorMessage(e.getDetailMessage())
-                .build();
-    }
+////    @ResponseStatus(value = HttpStatus.CONFLICT) // 설정 안 해주면 예외가 발생해도 응답이 200 OK로 감. But, 실무에서는 200 코드로 내려주고 아래 에러코드, 에러메시지를 변경하도록 개발함
+//    @ExceptionHandler(DMakerException.class)
+//    public DMakerErrorResponse handleException(DMakerException e, HttpServletRequest request) {
+//        log.error("errorCode:  {}, url: {}, message: {}",
+//                e.getDMakerErrorCode(), request.getRequestURI(), e.getDetailMessage());
+//
+//        return DMakerErrorResponse.builder()
+//                .errorCode(e.getDMakerErrorCode())
+//                .errorMessage(e.getDetailMessage())
+//                .build();
+//    }
 }
