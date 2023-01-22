@@ -61,7 +61,7 @@ public class DMakerService {
 
     private void validateCreateDeveloperRequest(@NonNull CreateDeveloper.Request request) {
         // business validation
-        validateDeveloperLevel(request.getDeveloperLevel(), request.getExperienceYears());
+        request.getDeveloperLevel().validateExperienceYears(request.getExperienceYears());
 
         // java 8부터는 아래와 같이 에러 코드 쓸 필요 없이 그 밑에 한줄로 표현 가능함
 //        Optional<Developer> developer = developerRepository.findByMemberId(request.getMemberId());
@@ -92,7 +92,7 @@ public class DMakerService {
 
     @Transactional
     public DeveloperDetailDto editDeveloper(String memberId, EditDeveloper.Request request) {
-        validateDeveloperLevel(request.getDeveloperLevel(), request.getExperienceYears());
+        request.getDeveloperLevel().validateExperienceYears(request.getExperienceYears());
 
         return DeveloperDetailDto.fromEntity(getUpdateDeveloperFromRequest(request, getDeveloperByMemberId(memberId)));
     }
@@ -103,13 +103,6 @@ public class DMakerService {
         developer.setExperienceYears(request.getExperienceYears());
 
         return developer;
-    }
-
-    private static void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
-        if (experienceYears < developerLevel.getMinExperienceYears() ||
-                experienceYears > developerLevel.getMaxExperienceYears()) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
     }
 
     @Transactional
