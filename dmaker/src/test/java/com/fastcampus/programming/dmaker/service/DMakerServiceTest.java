@@ -19,6 +19,7 @@ import java.util.Optional;
 import static com.fastcampus.programming.dmaker.type.DeveloperLevel.SENIOR;
 import static com.fastcampus.programming.dmaker.type.DeveloperSkillType.FRONT_END;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -92,6 +93,9 @@ class DMakerServiceTest {
         //given
         given(developerRepository.findByMemberId(anyString()))
                 .willReturn(Optional.empty());
+
+        given(developerRepository.save(any()))
+                .willReturn(defaultDeveloper);
 
         // 실제 저장된 데이터를 캡처해서 확인해볼 수 있다. (DB 저장 데이터 / API 파라미터 등 테스트 하고 싶을 때 사용)
         ArgumentCaptor<Developer> captor = ArgumentCaptor.forClass(Developer.class);
