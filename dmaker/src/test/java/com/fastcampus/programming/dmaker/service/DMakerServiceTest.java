@@ -7,7 +7,6 @@ import com.fastcampus.programming.dmaker.entity.Developer;
 import com.fastcampus.programming.dmaker.exception.DMakerErrorCode;
 import com.fastcampus.programming.dmaker.exception.DMakerException;
 import com.fastcampus.programming.dmaker.repository.DeveloperRepository;
-import com.fastcampus.programming.dmaker.repository.RetiredDeveloperRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -31,9 +30,6 @@ class DMakerServiceTest {
 
     @Mock
     private DeveloperRepository developerRepository;
-
-    @Mock
-    private RetiredDeveloperRepository retiredDeveloperRepository;
 
     //    @Autowired
     @InjectMocks // 가짜를 DMakerService에 Inject 해준다!
@@ -101,7 +97,7 @@ class DMakerServiceTest {
         ArgumentCaptor<Developer> captor = ArgumentCaptor.forClass(Developer.class);
 
         //when
-        CreateDeveloper.Response developer = dMakerService.createDeveloper(defaultCreateRequest);
+        dMakerService.createDeveloper(defaultCreateRequest);
 
         //then
         verify(developerRepository, times(1))
@@ -119,7 +115,7 @@ class DMakerServiceTest {
                 .willReturn(Optional.of(defaultDeveloper));
 
         // 실제 저장된 데이터를 캡처해서 확인해볼 수 있다.
-        ArgumentCaptor<Developer> captor = ArgumentCaptor.forClass(Developer.class);
+        ArgumentCaptor.forClass(Developer.class);
 
         //when
         //then
