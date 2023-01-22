@@ -19,7 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.fastcampus.programming.dmaker.constant.DMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS;
+import static com.fastcampus.programming.dmaker.constant.DMakerConstant.MIN_SENIOR_EXPERIENCE_YEARS;
 import static com.fastcampus.programming.dmaker.exception.DMakerErrorCode.*;
+import static com.fastcampus.programming.dmaker.type.DeveloperLevel.*;
 
 @Service
 @RequiredArgsConstructor
@@ -91,7 +94,7 @@ public class DMakerService {
     public DeveloperDetailDto editDeveloper(String memberId, EditDeveloper.Request request) {
         validateDeveloperLevel(request.getDeveloperLevel(), request.getExperienceYears());
 
-        return DeveloperDetailDto.fromEntity(getUpdateDeveloperFromRequest(request,  getDeveloperByMemberId(memberId)));
+        return DeveloperDetailDto.fromEntity(getUpdateDeveloperFromRequest(request, getDeveloperByMemberId(memberId)));
     }
 
     private Developer getUpdateDeveloperFromRequest(EditDeveloper.Request request, Developer developer) {
@@ -103,18 +106,8 @@ public class DMakerService {
     }
 
     private static void validateDeveloperLevel(DeveloperLevel developerLevel, Integer experienceYears) {
-        if (developerLevel == DeveloperLevel.SENIOR
-                && experienceYears < 10) {
-//            throw new RuntimeException("SENIOR need 10 years experience.");
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-
-        if (developerLevel == DeveloperLevel.JUNGNIOR
-                && (experienceYears < 4 || experienceYears > 10)) {
-            throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
-        }
-
-        if (developerLevel == DeveloperLevel.JUNIOR && experienceYears > 4) {
+        if (experienceYears < developerLevel.getMinExperienceYears() ||
+                experienceYears > developerLevel.getMaxExperienceYears()) {
             throw new DMakerException(LEVEL_EXPERIENCE_YEARS_NOT_MATCHED);
         }
     }
